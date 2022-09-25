@@ -1,10 +1,10 @@
-﻿// Задача 50. Напишите программу, которая на вход принимает позиции элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
+﻿// Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 
 // Например, задан массив:
 // 1 4 7 2
 // 5 9 2 3
 // 8 4 2 4
-// 1 7 -> такого числа в массиве нет
+// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
 
 int ReadNumber(string message)
 {
@@ -32,21 +32,24 @@ void PrintMatrix(int[,] matrix)
     {
         for(int j = 0; j < matrix.GetLength(1); j++)
         {
-            Console.Write("{0,4:F0}", matrix[i,j]);
+            Console.Write("{0,5:F0}", matrix[i,j]);
         }
         Console.WriteLine();
     }
 }
 
-void GetElement(int i, int j, int[,] matrix)
+void GetAverage(int[,] matrix)
 {
-    if(i <= matrix.GetLength(0) && j <= matrix.GetLength(1))
+    Console.WriteLine("Среднее арифметическое каждого столбца:");
+    for(int j = 0; j < matrix.GetLength(1); j++)
     {
-        Console.Write(matrix[i-1,j-1]);
-    }
-    else
-    {
-        Console.Write("Такого элемента в массиве нет");
+        double sum = 0;
+        for(int i = 0; i < matrix.GetLength(0); i++)
+        {
+            sum += matrix[i,j];
+        }
+        double av = sum/matrix.GetLength(0);
+        Console.Write("{0,5:F1}", av);
     }
 }
 
@@ -54,6 +57,4 @@ int m = ReadNumber("Введите количество строк");
 int n = ReadNumber("Введите количество столбцов");
 int[,] matr = GetMatrix(m, n);
 PrintMatrix(matr);
-int p = ReadNumber("Введите номер строки");
-int q = ReadNumber("Введите номер столбца");
-GetElement(p, q, matr);
+GetAverage(matr);
